@@ -45,7 +45,7 @@ const {
   setActiveStep,
   sortSeedTokens,
   getScaledAmounts,
-  saveState
+  saveState,
 } = usePoolCreation();
 
 const { tokens, priceFor, nativeAsset, wrappedNativeAsset } = useTokens();
@@ -73,7 +73,7 @@ const title = computed((): string =>
 const initialWeightLabel = computed(() => t('initialWeight'));
 
 const tokenAddresses = computed((): string[] => {
-  return seedTokens.value.map(token => {
+  return seedTokens.value.map((token) => {
     if (
       token.tokenAddress == wrappedNativeAsset.value.address &&
       useNativeAsset.value
@@ -105,7 +105,7 @@ const initialWeights = computed(() => {
 // an invalid initial weight is one where the the weight
 // is less than 1% of the pools value
 const hasInvalidInitialWeight = computed(() => {
-  return Object.values(initialWeights.value).some(initialWeight =>
+  return Object.values(initialWeights.value).some((initialWeight) =>
     initialWeight.lt(0.01)
   );
 });
@@ -137,7 +137,7 @@ function getSwapFeeManager() {
 function getInitialWeightHighlightClass(tokenAddress: string) {
   return {
     'text-gray-500': initialWeights[tokenAddress]?.gte(0.01),
-    'text-yellow-500': initialWeights[tokenAddress]?.lt(0.01)
+    'text-yellow-500': initialWeights[tokenAddress]?.lt(0.01),
   };
 }
 </script>
@@ -194,7 +194,7 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
                     <span
                       :class="[
                         'text-sm',
-                        getInitialWeightHighlightClass(token.tokenAddress)
+                        getInitialWeightHighlightClass(token.tokenAddress),
                       ]"
                     >
                       {{ initialWeightLabel }}:
@@ -242,7 +242,7 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
           </div>
           <BalStack vertical spacing="xs" class="p-3">
             <BalStack horizontal justify="between">
-              <span class="text-sm">{{ $t('poolSymbol') }}:</span>
+              <span class="text-sm">{{ $t('poolName') }}:</span>
               <BalInlineInput
                 size="xs"
                 v-model="poolName"
@@ -251,7 +251,7 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
               />
             </BalStack>
             <BalStack horizontal justify="between">
-              <span class="text-sm">{{ $t('poolName') }}:</span>
+              <span class="text-sm">{{ $t('poolSymbol') }}:</span>
               <BalInlineInput
                 size="xs"
                 v-model="poolSymbol"
